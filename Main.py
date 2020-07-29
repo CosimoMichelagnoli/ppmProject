@@ -1,13 +1,14 @@
 import emotions
 import Speech_recognition
-from threading import Thread
+import django
 
-emotion = Thread(target=emotions.Emotions)
-speech = Thread(target=Speech_recognition.SpeechRecognition)
+print(django.get_version())
+emotion = emotions.Emotions()
+speech = Speech_recognition.SpeechRecognition(emotion)
 emotion.daemon = True
 speech.daemon = True
-speech.start()
 emotion.start()
+speech.start()
 emotion.join()
 speech.join()
 
